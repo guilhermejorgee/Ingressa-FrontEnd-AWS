@@ -1,0 +1,36 @@
+.bg-roxo{
+    background-color: #845ABF;
+}
+
+.bg-fundo{
+    background-color: #E3DCF2;
+}
+
+.bg-perfil{
+    background-color: #9794F2;
+}
+
+.wh-300{
+width: 200px;
+height: 200px;
+}
+
+
+ul.list{
+    list-style: none;
+}
+
+.fab{
+    font-size: 25pt;
+    color: black;
+    padding-left: 10px;
+}
+
+.fa-linkedin:hover{
+    color: #0072b1;
+}
+
+.ft-title1{
+    font-family: "Argentum";
+    font-weight: bolder
+}

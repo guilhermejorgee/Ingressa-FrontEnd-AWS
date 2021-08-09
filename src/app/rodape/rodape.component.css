@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Eczar&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap');
+
+.bg-f{
+    background-color: #E3DCF2;
+}
+
+.icons{
+   font-size: 45px;
+   display: inline;
+   padding: 5px;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+}
+a:hover{
+    color: rgb(65, 6, 52);
+}
+
+ul{
+    list-style-type: none;
+    
+}
+
+.btn-bg{
+    background-color: rgb(43, 42, 42);       
+    border-radius: 10px;
+    border: 2px solid rgb(43, 42, 42);
+    font-family: 'Roboto Slab';
+    color: #E3DCF2;
+    font-size: 10pt;
+}
+.btn-bg:hover{
+    color:#E3DCF2;
+    background-color: rgb(87, 86, 86);  
+    border: 2px solid rgb(87, 86, 86); 
+}
+.btn-bg:active{
+    background-color: rgb(114, 114, 114);  
+}
+
+.r-t{
+    font-family: 'Eczar';
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.r-c{
+    font-weight: 100;
+}
+
+.bg-r-end{
+    background-color: #845ABF;
+}

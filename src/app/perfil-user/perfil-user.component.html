@@ -1,0 +1,77 @@
+<div id="tela" class=" bg-roxo6">
+
+    <div class="container">
+
+        <div class="row" style="color:#ede7f8">.</div>
+
+        <div class="row">
+            <div class="col-md-2 ">
+
+                <div class="card border-roxoclaro mb-3 mt-3 bg-roxo4">
+                    <div class="d-flex flex-column p-1">
+
+                        <div class="ms-1">
+
+                            <div class="d-flex align-items-center rounded p-2 border-b-p">
+                                <i class="fas fa-home me-2"></i><a class="mr-2-5" routerLink='/inicio'>Página
+                                    Inicial</a>
+                            </div>
+                            <div *ngIf="verificaPerfilUsuario()"
+                                class="d-flex align-items-center rounded p-2">
+                                <i class="fas fa-user-edit me-2"></i><a class="mr-2-5"
+                                    [routerLink]="['/perfil', user]">Editar Perfil</a>
+                            </div>
+                            <div *ngIf="verificaPerfilUsuario()"
+                                class="d-flex align-items-center rounded p-2">
+                                <i class="fas fa-align-left me-3"></i><a class="mr-2-5"
+                                    [routerLink]="['/minhas-postagens', user]">Minhas Postagens</a>
+                            </div>
+                            <div *ngIf="authService.empregador()" class="d-flex align-items-center rounded p-2  mt-1">
+                                <i class="fas fa-align-left me-3"></i><a [routerLink]="['/minhas-vagas', -1]">Minhas
+                                    Vagas</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-md-10 d-flex flex-column">
+
+                <div class="container-fluid d-flex align-items-center justify-content-center" id="container-central">
+                    <div class="col-md-10 p-3">
+
+
+                        <div class=" bg-roxo4 mb-3 border-roxoclaro">
+                            <div class="d-flex justify-content-center">
+                                <div class="col-md-6 d-flex justify-content-center">
+                                    <div class="col-md-6 ">
+                                        <img src="{{usuario.fotoPerfil}}"
+                                            class=" card-img-top img-fluid rounded-circle  my-3" alt="...">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-6 d-flex justify-content-center">
+                                    <div class="d-flex align-items-center flex-column mb-2">
+                                        <h4 class="text-center">{{usuario.nome}}
+                                            <h6>{{usuario.dataNascimento}}</h6>
+                                        </h4>
+                                        <h4 class="text-center"></h4>
+                                        <p class="text-center">{{usuario.descSobre}}</p>
+                                        <h6 class="text-center">{{usuario.email}}</h6>
+                                        <h6 class="text-center">{{usuario.telefone}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

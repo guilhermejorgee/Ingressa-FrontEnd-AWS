@@ -1,0 +1,328 @@
+<div class="container-fluid bg-roxo6" style="min-height: 60vh;">
+
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-7 flex-column">
+
+            <div class="bg-roxo4 container card rounded-1 mt-3 mb-3 pb-3 ">
+                <h3 class="text-center ft-title1">Procure um novo emprego</h3>
+                <div class="d-flex justify-content-center">
+                    <input [(ngModel)]="keyPesquisaCargoArea" (keyup)="pesquisaCargoAreaRegiao()" (keyup)="pesquisaCargoArea()"
+                        placeholder="🔎 Cargo ou area" type="text" class="w-50  me-2">
+                    <input [(ngModel)]="keyPesquisaRegiao" (keyup)="pesquisaCargoAreaRegiao()" (keyup)="pesquisaRegiao()" placeholder="Região" type="text"
+                        class="m-auto w-50  me-2">
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="authService.empregador()" class="col-md-4 bg rounded-3  mt-4 mb-3 pb-3 ">
+            <h5 class="text-center ft-title1">Pensando em publicar uma vaga para sua empresa?</h5>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-light bg-azul btn-vaga text-white" data-bs-toggle="modal"
+                    data-bs-target="#modalPublicacao">
+                    Crie uma Vaga</button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+
+        <h1 class="text-center ft-title1">Vagas disponíveis</h1>
+
+        <!--Todas as postagens-->
+        <div *ngIf="verificandoParaTodasPostagens()" class="row">
+
+            <div class="col-md-12 d-flex justify-content-center flex-wrap bg-roxo6 animacaoRolagem">
+
+                <div class=" border-roxoclaro card my-3 bg-roxo4 h-p me-2 box"
+                    style="width:300px; height: 200px; overflow: hidden;"
+                    *ngFor='let item of listaPostagens | orderBy: key : reverse'>
+
+                    <div class="p-1 d-flex align-items-center">
+                        <div>
+                            <img src="{{item.usuario.fotoPerfil}}" class="me-2 card-img-top img-fluid rounded-circle"
+                                alt="..." style="width: 50px;">
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span class="text-secondary">{{item.usuario.nome}}</span>
+                            <small>{{item.dataDePostagem | date: 'dd/MM/yyyy'}} às {{item.dataDePostagem | date:
+                                'HH:mm'}}</small>
+                        </div>
+                    </div>
+
+                    <div class="p-1">
+                        <h5 class="card-title"><b>{{item.titulo}}</b></h5>
+                        <h6>Cargo: {{item.cargo}}</h6>
+                        <h6>Região: {{item.regiao}}</h6>
+                        <p class="card-text my-3" [innerHTML]="item.texto"></p>
+                        <a data-bs-toggle="modal" data-bs-target="#postagemPesquisada" (click)="redEditPost(item.id)"
+                            (click)="findPostagemId()" class="bet_time"><span>Ver vaga
+                            completa</span></a>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <!--/Todas as postagens-->
+
+        <!--Postagens Cargo e Area-->
+        <div class="row" *ngIf="verificandoParaCargoArea()">
+
+            <div class="col-md-12 d-flex justify-content-center flex-wrap animacaoRolagem">
+
+                <div class="border-roxoclaro card my-3 bg-roxo6 h-p me-2 box"
+                    style="width:300px; height: 200px; overflow: hidden;"
+                    *ngFor='let item of listaPostagensAreaCargo | orderBy: key : reverse'>
+
+                    <div class="mx-4 my-3 d-flex align-items-center">
+                        <div>
+                            <img src="{{item.usuario.fotoPerfil}}" class="me-2 card-img-top img-fluid rounded-circle"
+                                alt="..." style="width: 50px;">
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span class="text-secondary">{{item.usuario.nome}}</span>
+                            <small>{{item.dataDePostagem | date: 'dd/MM/yyyy'}} às {{item.dataDePostagem | date:
+                                'HH:mm'}}</small>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title"><b>{{item.titulo}}</b></h5>
+                        <h6>Cargo: {{item.cargo}}</h6>
+                        <h6>Região: {{item.regiao}}</h6>
+                        <p class="card-text my-3" [innerHTML]="item.texto"></p>
+
+                        <a data-bs-toggle="modal" data-bs-target="#postagemPesquisada" (click)="redEditPost(item.id)"
+                            (click)="findPostagemId()" class="bet_time"><span>Ver vaga
+                            completa</span></a>
+                    </div>
+
+
+                    <div class="d-flex justify-content-around mb-2">
+
+                        <!--    <button class="btn btn-outline-success">{{item.qtCurtidas}} Gostei
+                                </button>
+                                <button class="btn btn-outline-secondary">Comentar</button>
+                                <button class="btn btn-outline-primary">Compartilhar</button>
+                            </div> -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <!--/Postagens cargo ou area-->
+
+        <!--Postagens Regiao-->
+        <div class="row" *ngIf="verificandoParaRegiao()">
+
+            <div class="col-md-12 d-flex justify-content-center flex-wrap animacaoRolagem">
+
+                <div class="border-roxoclaro card my-3 bg-roxo6 h-p me-2 box"
+                    style="width:300px; height: 200px; overflow: hidden;"
+                    *ngFor='let item of listaPostagensRegiao | orderBy: key : reverse'>
+
+                    <div class="mx-4 my-3 d-flex align-items-center">
+                        <div>
+                            <img src="{{item.usuario.fotoPerfil}}" class="me-2 card-img-top img-fluid rounded-circle"
+                                alt="..." style="width: 50px;">
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span class="text-secondary">{{item.usuario.nome}}</span>
+                            <small>{{item.dataDePostagem | date: 'dd/MM/yyyy'}} às {{item.dataDePostagem | date:
+                                'HH:mm'}}</small>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title"><b>{{item.titulo}}</b></h5>
+                        <h6>Cargo: {{item.cargo}}</h6>
+                        <h6>Região: {{item.regiao}}</h6>
+                        <p class="card-text my-3" [innerHTML]="item.texto"></p>
+
+                        <a data-bs-toggle="modal" data-bs-target="#postagemPesquisada" (click)="redEditPost(item.id)"
+                            (click)="findPostagemId()" class="bet_time"><span>Ver vaga
+                            completa</span></a>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <!--/Postagens Região-->
+
+                <!--Postagens Area cargo e região-->
+                <div class="row" *ngIf="verificandoParaCargoAreaRegiao()">
+
+                    <div class="col-md-12 d-flex justify-content-center flex-wrap animacaoRolagem">
+        
+                        <div class="border-roxoclaro card my-3 bg-roxo6 h-p me-2 box"
+                            style="width:300px; height: 200px; overflow: hidden;"
+                            *ngFor='let item of listaPostagensAreaCargoERegiao | orderBy: key : reverse'>
+        
+                            <div class="mx-4 my-3 d-flex align-items-center">
+                                <div>
+                                    <img src="{{item.usuario.fotoPerfil}}" class="me-2 card-img-top img-fluid rounded-circle"
+                                        alt="..." style="width: 50px;">
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <span class="text-secondary">{{item.usuario.nome}}</span>
+                                    <small>{{item.dataDePostagem | date: 'dd/MM/yyyy'}} às {{item.dataDePostagem | date:
+                                        'HH:mm'}}</small>
+                                </div>
+                            </div>
+        
+                            <div class="card-body">
+                                <h5 class="card-title"><b>{{item.titulo}}</b></h5>
+                                <h6>Cargo: {{item.cargo}}</h6>
+                                <h6>Região: {{item.regiao}}</h6>
+                                <p class="card-text my-3" [innerHTML]="item.texto"></p>
+        
+                                <a data-bs-toggle="modal" data-bs-target="#postagemPesquisada" (click)="redEditPost(item.id)"
+                                (click)="findPostagemId()" class="bet_time"><span>Ver vaga
+                                completa</span></a>
+                            </div>
+        
+                        </div>
+        
+                    </div>
+        
+        
+                </div>
+                <!--/Postagens area cargo e região-->
+
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modalPublicacao" tabindex="-1" aria-labelledby="modalPublicacaoLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-roxo">
+                    <h5 class="modal-title text-white" id="modalPublicacaoLabel">Publicar Vaga</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-roxo3">
+
+                    <!--  <h5>Titulo</h5>-->
+
+                    <div class="form-group text-center texto mb-2">
+
+                        <input [(ngModel)]="postagem.titulo" class="form-control w-100 bg-in" type="text"
+                            placeholder="Titulo (mínimo de 4 caracteres)">
+
+                    </div>
+
+                    <div class="form-group text-center texto mb-2">
+
+                        <input [(ngModel)]="postagem.cargo" class="form-control w-100 bg-in" type="text"
+                            placeholder="Informe o cargo">
+
+                    </div>
+
+                    <div class="form-group text-center texto mb-2">
+
+                        <input [(ngModel)]="postagem.regiao" class="form-control w-100 bg-in" type="text"
+                            placeholder="Localidade">
+
+                    </div>
+
+                    <!--  <h5>Texto</h5>-->
+
+                    <div class="form-group text-center texto mb-2">
+                        <small style="font-size: 10pt; text-align: left; text-transform:none; margin: 0;">Para destacar
+                            uma palavra coloque &lt;d&gt;&lt;/d&gt; | Exemplo: &lt;d&gt;<span
+                                class="text-dark">Requisitos:</span>&lt;/d&gt; </small>
+                        <textarea [(ngModel)]="postagem.texto" class="form-control bg-in"
+                            placeholder="Descreva as caracteristicas da vaga (mínimo de 10 caracteres)"
+                            name="textoPublicacao" id="" cols="30" rows="8"></textarea>
+
+                    </div>
+
+
+                    <div class="form-group text-center texto">
+
+                        <div class="form-group my-3 mx-3">
+                            <select [(ngModel)]="temaEscolhido" class="form-select bg-in" name="tema" id="tema"
+                                (change)="findByIdTema()">
+                                <option value="-1">Escolha um Tema</option>
+                                <option *ngFor='let item of listaTema' class="fw-bolder" value="{{item.id}}">
+                                    {{item.area}}</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer bg-roxo3">
+
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button data-bs-dismiss="modal" (click)="postVaga()" type="button"
+                            class="btn btn-secondary bg-roxo">Publicar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+
+    <div class="modal fade" id="postagemPesquisada" tabindex="-1" aria-labelledby="postagemPesquisadaLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-roxo text-center">
+                    <h5 class="modal-title text-white" id="postagemPesquisadaLabel">Sobre a vaga</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-roxo3">
+                    <div class="mx-4 my-3 d-flex align-items-center">
+                        <div>
+                            <img src="{{postagemSelecionada?.usuario?.fotoPerfil}}"
+                                class="me-2 card-img-top img-fluid rounded-circle" alt="..." style="width: 50px;">
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span class="text-secondary">{{postagemSelecionada?.usuario?.nome}}</span>
+                            <small>{{postagemSelecionada?.dataDePostagem | date: 'dd/MM/yyyy'}} às
+                                {{postagemSelecionada?.dataDePostagem | date:
+                                'HH:mm'}}</small>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title"><b>{{postagemSelecionada?.titulo}}</b></h5>
+                        <p class="card-text my-3" style="word-wrap: break-word" [innerHTML]="postagemSelecionada?.texto"></p>
+                    </div>
+
+
+                    <div class="d-flex justify-content-around mb-2">
+                        <div class="d-flex flex-column align-items-center">
+                            <button *ngIf="verificandoCurtidasNaoFeita(postagemSelecionada?.id)"
+                                (click)="curtidaPostagem(user, postagemSelecionada?.id)"
+                                class="btn btn-light bg-azul text-white">Tenho Interesse
+                            </button>
+                            <button (load)="this.findByUser()" *ngIf="verificandoCurtidasFeita(postagemSelecionada?.id)"
+                                (click)="descurtidaPostagem(user, postagemSelecionada?.id)"
+                                class="btn btn-light bg-roxo text-white">Tenho Interesse <i class="fas fa-check-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

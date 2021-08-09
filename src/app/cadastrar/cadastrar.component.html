@@ -1,0 +1,132 @@
+<div id="tela">
+
+    <div class="container-fluid">
+
+        <div class="row d-flex justify-content-start enable-mobile">
+            <div class="col-md-12 p-3 enable-mobile">
+                <a class="v-p-l texto" routerLink="/entrar"><i class="fas fa-chevron-circle-left"></i> Voltar para o
+                    Login</a>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12 d-flex">
+
+                <div class="container-fluid d-flex align-items-center justify-content-center" id="container-central">
+
+                    <div class="col-md-7 text-center disable-mobile">
+                        <img src="https://i.imgur.com/EoCiFTO.png" alt="">
+                    </div>
+
+                    <div class="col-md-5 bg-l p-3">
+
+                        <div class="container d-flex justify-content-center enable-mobile">
+
+
+                            <img class="enable-mobile mb-3" src="https://i.imgur.com/4LRmSKg.png" alt="">
+
+                        </div>
+
+
+
+                        <div class="form-group text-center texto">
+                            <div class="d-flex justify-content-between">
+                             <!--  <a class="v-p-l" (click)="exibeAdmin()" id="adminClick">
+                                    <p><i class="fas fa-unlock"></i> Cadastrar Admin</p>
+                                </a>--> 
+                                <a routerLink="/entrar" class="v-p-l disable-mobile">
+                                    <p><i class="fas fa-chevron-circle-left"></i> Voltar para o login</p>
+                                </a>
+                            </div>
+                            <!-- <label for="nome">Usuário</label>-->
+                            <input [(ngModel)]="usuario.nome" class="form-control bg-in" type="text" name="nome"
+                                id="nome" (keyup)="validandoNome()" placeholder="Digite seu Nome e Sobrenome*">
+                        </div>
+
+                        <div class="form-group text-center texto">
+                            <!-- <label for="usuario">Email</label>-->
+                            <input [(ngModel)]="usuario.email" class="form-control bg-in mt-2" type="text" name="email"
+                                id="email" (keyup)="validandoEmail()" placeholder="Digite seu email *">
+                        </div>
+
+                        <div class="form-group text-center texto">
+                            <!-- <label for="senha">Senha</label> -->
+                            <input (input)="confirmSenha($event)" (blur)="verificandoSenhas()"
+                                (keyup)="verificandoSenhas()" class="form-control mt-2 bg-in " type="password"
+                                name="senha" id="senha" (keyup)="validandoSenha()"
+                                placeholder="Digite a senha* (Minimo 8 caracteres, uma letra maiuscula e um número)">
+                        </div>
+
+                        <div class="form-group text-center texto">
+                            <!-- <label for="senha">Senha</label> -->
+                            <input [(ngModel)]="usuario.senha" class="form-control mt-2 bg-in " type="password"
+                                name="confirmSenha" id="confirmSenha" (keyup)="verificandoSenhas()"
+                                placeholder="Confirme a senha digitada*">
+                        </div>
+
+                        <div class="form-group text-center texto">
+                            <!-- <label for="senha">Senha</label> -->
+                            <input [(ngModel)]="usuario.dataNascimento" class="form-control mt-2 bg-in" type="text"
+                                name="dataNascimento" id="dataNascimento" placeholder="Data de Nascimento*"
+                                (focus)="dataNascimento()">
+                        </div>
+
+                        <div class="form-group">
+                            <!--<label for="phone">Telefone <span class="required">*</span></label>-->
+                            <input [(ngModel)]="usuario.telefone" class="form-control mt-2 bg-in"
+                                (keyup)="validandoTel()" type="text" id="phone" name="phone"
+                                placeholder="Telefone celular, formato: 9999999999"
+                                pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
+                                title="Número de telefone celular precisa ser no formato 11989999999"/>
+                        </div>
+
+                        <div>
+                            <textarea [(ngModel)]="usuario.descSobre" class="form-control mt-2 bg-in"
+                                placeholder="Fale um pouco sobre você" name="textoPublicacao" id="" cols="30"
+                                rows="4"></textarea>
+                        </div>
+
+                        <div class="form-group text-center texto">
+                            <!-- <label for="usuario">Usuário</label>-->
+                            <input [(ngModel)]="usuario.fotoPerfil" class="form-control bg-in mt-2" type="text"
+                                name="linkFoto" id="linkFoto" (keyup)="validaFoto()"
+                                placeholder="Link foto de perfil (Caso se sinta confortável)">
+                        </div>
+
+                        <select name="select" class="form-select bg-in mt-2" (change)="tipoUsuario($event)">
+                            <option class="fw-bolder" value="valor1" selected>Escolha a opção que se aplica ao seu caso
+                            </option>
+                            <option class="fw-bolder" value="valor2">Estou em busca de emprego</option>
+                            <option class="fw-bolder" value="valor3">Gostaria de divulgar vagas de emprego</option>
+                        </select>
+
+                        <div class="form-group text-center texto" id="empresaAtual">
+                            <!--  <label for="usuario">Admin</label>-->
+                            <input (input)="empresaAtual($event)" class="form-control bg-in mt-2 empresaAtual"
+                                type="text" name="inputEmpresaAtual" id="inputEmpresaAtual"
+                                placeholder="Digite o nome da sua empresa*">
+                        </div>
+
+                        <div class="form-group text-center texto" id="admin">
+                            <!--  <label for="usuario">Admin</label>-->
+                            <input (input)="verificandoAdmin($event)" class="form-control bg-in mt-2" type="text"
+                                name="inputAdmin" id="inputAdmin"
+                                placeholder="Digite a chave para criação da conta de administrador*">
+                        </div>
+
+                        <div class="d-flex justify-content-center mt-3">
+                            <button (click)="cadastrar()" type="submit" class="btn bg-btn w-100">Cadastrar</button>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>

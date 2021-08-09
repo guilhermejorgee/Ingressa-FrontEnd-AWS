@@ -1,0 +1,410 @@
+<div class="container-fluid bg-roxo6"  style="min-height: 60vh;">
+    <div class="container">
+
+        <div class="row" style="color:#ede7f8">
+            .
+        </div>
+
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-3">
+                <!--  <div class="row">.</div>-->
+                <div class="card border-roxoclaro mb-3 bg-roxo4">
+                    <div class="d-flex justify-content-center">
+                        <div class="col-md-6">
+                            <div>
+                                <img src="{{foto}}" class="bg-l card-img-top img-fluid rounded-circle  my-3" alt="...">
+                                <h4 class="text-center">{{nome}}</h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex flex-column p-1 mt-2">
+
+                        <div class="ms-1">
+
+                            <div class="d-flex align-items-center rounded p-2 border-b-p">
+                                <i class="fas fa-user-edit me-2"></i><a class="mr-2-5"
+                                    [routerLink]="['/perfil-user', user]">Meu Perfil</a>
+                            </div>
+                            <div class="d-flex align-items-center rounded p-2  mt-1">
+                                <i class="fas fa-align-left me-3"></i><a [routerLink]="['/minhas-postagens', -1]">Minhas
+                                    Postagens</a>
+                            </div>
+                            <div *ngIf="authService.empregador()" class="d-flex align-items-center rounded p-2  mt-1">
+                                <i class="fas fa-align-left me-3"></i><a [routerLink]="['/minhas-vagas', -1]">Minhas
+                                    Vagas</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--  
+                <div class="card-body bg-roxo6">
+                    <h5> <b>Links Páginas</b> </h5>
+                    <ul class="my-3">
+                        <li class=""><a> Pagina 1</a></li>
+                        <li class=""><a> Pagina 2</a></li>
+                        <li class=""><a> Pagina 3</a></li>
+                        <li class=""><a> Pagina 4</a></li>
+                    </ul>
+                </div> -->
+
+
+            </div>
+
+
+            <div class="col-md-6">
+                <!--  <div class="row">.</div>-->
+                <div class="border-roxoclaro card mb-4 bg-roxo4">
+
+                    <div class="row my-3 mx-2 d-flex align-items-center">
+
+                        <div class="col-md-9 my-2 d-flex align-items-center">
+
+                            <img src="{{foto}}" class="card-img-top img-fluid rounded-circle me-2" alt=" Foto de Perfil"
+                                style="width: 50px;">
+
+                            <button class="btn button-h border-roxoclaro bg-roxo4 text-dark w-100 text-start"
+                                style="height: 45px;" data-bs-toggle="modal" data-bs-target="#publicacaoModal">
+                                Criar
+                                uma nova postagem
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <span class="me-2 p-t-p">Postagens por tema:</span>
+                    <select [(ngModel)]="rastrearOpcaoTema" (change)="findByIdTemaPostagens($event)"
+                        class="form-select bg-roxo4 border-roxoclaro" name="" id="">
+                        <option value="todos">Todos</option>
+                        <option *ngFor="let item of temas" value="{{item.id}}">{{item.area}}</option>
+                    </select>
+                </div>
+
+                <!--Lista Temas-->
+                <div *ngIf="verificaPostagemTema()">
+                    <div class="border-roxoclaro card my-3 bg-roxo4 h-p animacaoRolagem"
+                        *ngFor='let item of temaPostagens.postagem | orderBy: key : reverse'>
+
+                        <div class="mx-4 my-3 d-flex align-items-center">
+                            <div>
+                                <img src="{{item.usuario.fotoPerfil}}"
+                                    class="me-2 card-img-top img-fluid rounded-circle" alt="..." style="width: 50px;">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <span class="text-secondary">{{item.usuario.nome}}</span>
+                                <small>{{item.dataDePostagem | date: 'dd/MM/yyyy'}} às {{item.dataDePostagem | date:
+                                    'HH:mm'}}</small>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{item.titulo}}</b></h5>
+                            <p class="card-text my-3" [innerHTML]="item.texto"></p>
+                            <div class="d-flex justify-content-center">
+                                <img onerror="this.style.display='none'" src="{{item.midia}}"
+                                    class="card-img-top img-fluid" alt="..." style="width: 370px;">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <iframe *ngIf="verificandoVideo(item.midia)" width="100%" height="300"
+                                    [src]="item.midia | safe"></iframe>
+                            </div>
+
+                        </div>
+
+                        <div class="container">
+                            <hr>
+                        </div>
+
+                        <div class="d-flex justify-content-around mb-2">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="d-flex">
+                                    <span (click)="findByIdPostagem(item.id)"
+                                    class="btn btn-light bg-azul btn-qmcurtiu text-white" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop" class="me-2 botaoapoio">{{item.qtCurtidas}}</span>
+                                    <span *ngIf="verificandoCurtidasNaoFeita(item?.id)"
+                                        (click)="curtidaPostagem(user, item?.id)"
+                                        (click)="findByIdTemaPostagens(temaPostagens.id)" class="botaoapoio"><i style="font-size: 18pt;"
+                                            class="fas fa-hand-holding-heart"></i>
+                                    </span>
+                                    <span (load)="this.findByUser()" *ngIf="verificandoCurtidasFeita(item?.id)"
+                                        (click)="descurtidaPostagem(user, item?.id)"
+                                        (click)="findByIdTemaPostagens(temaPostagens.id)"
+                                        class="botaoapoio" style="color: #845ABF;"><i style="font-size: 18pt;"
+                                            class="fas fa-hand-holding-heart"></i>
+                                    </span>
+                                </div>
+                            </div>
+                           <!-- <button class="btn btn-light bg-azul btn-qmcurtiu text-white" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">Quem curtiu</button>-->
+
+
+                            <button (click)="findByIdPostagem(item.id)"
+                                class="btn btn-light bg-azul btn-qmcurtiu text-white" data-bs-toggle="modal"
+                                data-bs-target="#comentarios">Comentários</button>
+                        </div>
+
+                    </div>
+                </div>
+                <!--/Lista Temas-->
+
+                <!--Lista Geral-->
+                <div *ngIf="verificaPostagemGeral()">
+                    <div class="border-roxoclaro card my-3 bg-roxo4 h-p"
+                        *ngFor='let item of postagens | orderBy: key : reverse'>
+
+                        <div class="mx-4 my-3 d-flex align-items-center">
+                            <div>
+                                <img src="{{item.usuario.fotoPerfil}}"
+                                    class="me-2 card-img-top img-fluid rounded-circle" alt="..." style="width: 50px;">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <span class="text-secondary">{{item.usuario.nome}}</span>
+                                <small>{{item.dataDePostagem | date: 'dd/MM/yyyy'}} às {{item.dataDePostagem | date:
+                                    'HH:mm'}}</small>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{item.titulo}}</b></h5>
+                            <p class="card-text my-3" [innerHTML]="item.texto"></p>
+                            <div class="d-flex justify-content-center">
+                                <img onerror="this.style.display='none'" src="{{item.midia}}"
+                                    class="card-img-top img-fluid" alt="..." style="width: 370px;">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <iframe *ngIf="verificandoVideo(item.midia)" width="100%" height="300"
+                                    [src]="item.midia | safe"></iframe>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-around mb-2">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="d-flex">
+                                    <span (click)="findByIdPostagem(item.id)"
+                                    class="btn btn-light bg-azul btn-qmcurtiu text-white" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop" class="me-2 botaoapoio">{{item.qtCurtidas}}</span>
+                                    <span *ngIf="verificandoCurtidasNaoFeita(item?.id)"
+                                        (click)="curtidaPostagem(user, item.id)"
+                                        class="btn btn-outline-success clickcurtir"
+                                        class="botaoapoio"><i style="font-size: 18pt;"
+                                            class="fas fa-hand-holding-heart"></i>
+                                    </span>
+                                    <span (load)="this.findByUser()" *ngIf="verificandoCurtidasFeita(item?.id)"
+                                        (click)="descurtidaPostagem(user, item.id)"
+                                        class="botaoapoio"
+                                        style="color: #845ABF;"><i style="font-size: 18pt;"
+                                            class="fas fa-hand-holding-heart"></i>
+                                    </span>
+                                </div>
+                            </div>
+                       <!--     <button (click)="findByIdPostagem(item.id)"
+                                class="btn btn-light bg-azul btn-qmcurtiu text-white" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">Quem curtiu</button>-->
+
+                            <button (click)="findByIdPostagem(item.id)"
+                                class="btn btn-light bg-azul btn-qmcurtiu text-white" data-bs-toggle="modal"
+                                data-bs-target="#comentarios">Comentários</button>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!--/Lista Geral-->
+
+
+
+            </div>
+
+            <div class="col-md-3">
+
+                <!-- <div class="row" style="color:#ede7f8">.</div>-->
+                <div class="border-roxoclaro card card-body bg-roxo4">
+                    <h5 class="t-c d-flex align-items-center mb-2"><i class="fas fa-info-circle me-1"></i>Ranking
+                    </h5>
+
+                    <ul class="list-group list-group-flush">
+                        <span *ngFor='let item of topUsuariosEmpregadores | slice:0:3'>
+                            <li class="t-c-li mt-2">{{item.nome}}</li>
+                            <li class="t-c-li emp-li">Vagas publicadas: {{item.qtdPostagem}}</li>
+                            <li class="t-c-li emp-li">Empresa: {{item.empresaAtual}}</li>
+                        </span>
+                    </ul>
+                </div>
+
+
+
+                <div class="border-roxoclaro card card-body my-2 bg-roxo4">
+                    <h5 class="t-c d-flex align-items-center mb-2"><i class="fas fa-info-circle me-1"></i>Postagens
+                        em Alta</h5>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="t-c-li mt-2" *ngFor='let item of postagensEmAlta | slice:0:3'>
+                            <a>{{item.titulo}}</a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="publicacaoModal" tabindex="-1" aria-labelledby="publicacaoModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-roxo text-center">
+                        <h5 class="modal-title text-white" id="publicacaoModalLabel">Nova Publicação</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body bg-roxo3">
+
+                        <!--  <h5>Titulo</h5>-->
+
+                        <div class="form-group text-center texto mb-2">
+
+                            <input [(ngModel)]="postagem.titulo" class="form-control w-100 bg-in" type="text"
+                                placeholder="Titulo (mínimo de 4 caracteres)">
+
+                        </div>
+
+                        <!--  <h5>Texto</h5>-->
+
+                        <div class="form-group text-center texto mb-2">
+
+                            <textarea [(ngModel)]="postagem.texto" class="form-control bg-in"
+                                placeholder="Escreva sua publicação (mínimo de 10 caracteres)" name="textoPublicacao"
+                                id="" cols="30" rows="8"></textarea>
+
+                        </div>
+
+                        <!--  <h5>Link de video ou Foto</h5>-->
+
+                        <div class="form-group text-center texto mb-2">
+
+                            <input [(ngModel)]="postagem.midia" class="form-control w-100 bg-in" type="text"
+                                placeholder="Link de video ou Foto">
+
+                        </div>
+
+                        <div class="form-group text-center texto">
+
+                            <div class="form-group my-3 mx-3">
+                                <select [(ngModel)]="temaEscolhido" class="form-select bg-in" name="tema" id="tema"
+                                    (change)="findByIdTema()">
+                                    <option value="-1">Escolha um Tema</option>
+                                    <option *ngFor='let item of temas' class="fw-bolder" value="{{item.id}}">
+                                        {{item.area}}</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer bg-roxo3">
+
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <button data-bs-dismiss="modal" (click)="PostPostagensComum()" type="button"
+                                class="btn btn-secondary bg-roxo">Publicar</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-roxo text-center">
+                <h5 class="modal-title" id="staticBackdropLabel">Curtidas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body bg-roxo3">
+                <ul>
+                    <li *ngFor="let item of postagem2.curtidoresPostagem">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="{{item.fotoPerfil}}" class="me-2 card-img-top img-fluid rounded-circle"
+                                alt="Foto de perfil" style="width: 50px;">
+
+                            <a data-bs-dismiss="modal" [routerLink]="['/perfil-user', item.id]">{{item.nome}}</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="comentarios" data-bs-keyboard="false" tabindex="-1" aria-labelledby="comentariosLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-roxo text-center">
+                <h5 class="modal-title text-white" id="comentariosLabel">Comentarios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body bg-roxo3">
+
+
+                <div class="form-group text-center texto mb-2">
+
+                    <textarea [(ngModel)]="comentario.comentario" class="form-control bg-in"
+                        placeholder="Escreva um comentário" name="textoPublicacao" id="" cols="30" rows="5"></textarea>
+
+                </div>
+
+                <div class="col-md-12 d-flex justify-content-end">
+                    <button type="button" (click)="postarComentarioPostagem()"
+                        class="btn btn-secondary bg-roxo">Comentar</button>
+                </div>
+
+
+                <ul class="mt-2">
+                    <li *ngFor="let item of postagem2.comentarios | orderBy: keyc : reverse">
+                        <div class=" mb-2 bg-roxo4 border-roxoclaro p-1">
+                            <div class="d-flex align-items-center border-bottom pb-1">
+                                <img src="{{item.usuario.fotoPerfil}}"
+                                    class="me-2 card-img-top img-fluid rounded-circle" alt="Foto de perfil"
+                                    style="width: 50px;">
+                                <div class="d-flex">
+                                    <a data-bs-dismiss="modal" class="ms-2"
+                                        [routerLink]="['/perfil-user', item.usuario.id]">{{item.usuario.nome}} </a>
+                                    <span>&nbsp;em {{item.dataDeComentario | date: 'dd/MM/yyyy'}} às
+                                        {{item.dataDeComentario | date:
+                                        'HH:mm'}}</span>
+                                </div>
+                            </div>
+                            <p class="mt-1 ms-2">{{item.comentario}}</p>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

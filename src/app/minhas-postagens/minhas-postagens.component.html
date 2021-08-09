@@ -1,0 +1,300 @@
+<div class="container-fluid bg-roxo6" style="min-height: 60vh;">
+    <div class="container">
+
+        <div class="row d-flex justify-content-center">
+
+            <div class="col-md-3">
+                <div class="row" style="color:#ede7f8">.</div>
+                <div class="card border-roxoclaro mb-3 bg-roxo4">
+                    <div class="d-flex justify-content-center">
+                        <div class="col-md-6">
+                            <div>
+                                <img src="{{foto}}" class="bg-l card-img-top img-fluid rounded-circle  my-3" alt="...">
+                                <h4 class="text-center">{{nome}}</h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex flex-column p-1 mt-2">
+
+                        <div class="ms-1">
+
+                            <div class="d-flex align-items-center rounded p-2 border-b-p">
+                                <i class="fas fa-home me-2"></i><a class="mr-2-5" routerLink='/inicio'>Página
+                                    Inicial</a>
+                            </div>
+
+                            <div class="d-flex align-items-center rounded p-2  mt-1">
+                                <i class="fas fa-user-edit me-2"></i><a [routerLink]="['/perfil-user', user]">Meu perfil</a>
+                            </div>
+
+                            <div *ngIf="authService.empregador()" class="d-flex align-items-center rounded p-2  mt-1">
+                                <i class="fas fa-align-left me-3"></i><a [routerLink]="['/minhas-vagas', -1]">Minhas
+                                    Vagas</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="row" style="color:#ede7f8">.</div>
+                <div class="border-roxoclaro card mb-4 bg-roxo4">
+
+                    <div class="row my-3 mx-2 d-flex align-items-center">
+
+                        <h1 class="text-center ft-title1">Minhas Postagens</h1>
+
+                    </div>
+
+                </div>
+
+                <div class="container-fluid">
+                    <span class="me-2 p-t-p">Postagens por tema:</span>
+                    <select [(ngModel)]="rastrearOpcaoTema" (change)="findByIdTemaPostagens($event)"
+                        class="form-select bg-roxo4 border-roxoclaro" name="" id="">
+                        <option value="todos">Todos</option>
+                        <option *ngFor="let item of listaTemas" value="{{item.id}}">{{item.area}}</option>
+                    </select>
+                </div>
+
+                <!--Postagem Temas-->
+                <div *ngIf="verificaPostagemTema()">
+                    <div class="border-roxoclaro card my-3 bg-roxo4 h-p animacaoRolagem"
+                        *ngFor='let item of postagensTema | orderBy : key : reverse'>
+
+                        <div class="mx-4 my-3 d-flex align-items-center">
+                            <div>
+                                <img src="{{item.usuario.fotoPerfil}}"
+                                    class="me-2 card-img-top img-fluid rounded-circle" alt="..." style="width: 50px;">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <span class="text-secondary">{{item.usuario.nome}}</span>
+                                <small>{{item.dataDePostagem | date: 'dd/MM/yyyy'}} às {{item.dataDePostagem | date:
+                                    'HH:mm'}}</small>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{item.titulo}}</b></h5>
+                            <p class="card-text my-3" [innerHTML]="item.texto"></p>
+                            <div class="d-flex justify-content-center">
+                                <img onerror="this.style.display='none'" src="{{item.midia}}"
+                                    class="card-img-top img-fluid" alt="..." style="width: 370px;">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <iframe *ngIf="verificandoVideo(item.midia)" width="100%" height="300"
+                                    [src]="item.midia | safe"></iframe>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-around mb-2">
+
+
+                            <button (click)="redEditPost(item.id)" (click)="findPostagemId()" type="button"
+                            class="btn btn-light bg-azul btn-style text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Editar
+                            </button>
+
+
+                            <button (click)="redEditPost(item.id)" (click)="findPostagemId()"
+                            class="btn btn-light bg-azul btn-style text-white" data-bs-target="#modalDelete" data-bs-toggle="modal">
+                                Deletar</button>
+                        </div>
+
+                    </div>
+                </div>
+                <!--/Postagens Temas-->
+
+                <!--Postagem Geral-->
+                <div *ngIf="verificaPostagemGeral()">
+                    <div class="border-roxoclaro card my-3 bg-roxo4 h-p animacaoRolagem"
+                        *ngFor='let item of postagem | orderBy: key : reverse'>
+
+                        <div class="mx-4 my-3 d-flex align-items-center">
+                            <div>
+                                <img src="{{item.usuario.fotoPerfil}}"
+                                    class="me-2 card-img-top img-fluid rounded-circle" alt="..." style="width: 50px;">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <span class="text-secondary">{{item.usuario.nome}}</span>
+                                <small>{{item.dataDePostagem | date: 'dd/MM/yyyy'}} às {{item.dataDePostagem | date:
+                                    'HH:mm'}}</small>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{item.titulo}}</b></h5>
+                            <p class="card-text my-3" [innerHTML]="item.texto"></p>
+                            <div class="d-flex justify-content-center">
+                                <img onerror="this.style.display='none'" src="{{item.midia}}"
+                                    class="card-img-top img-fluid" alt="..." style="width: 370px;">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <iframe *ngIf="verificandoVideo(item.midia)" width="100%" height="300"
+                                    [src]="item.midia | safe"></iframe>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-around mb-2">
+
+
+                            <button (click)="redEditPost(item.id)" (click)="findPostagemId()" type="button"
+                            class="btn btn-light bg-azul btn-style text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Editar
+                            </button>
+
+
+
+                            <button (click)="redEditPost(item.id)" (click)="findPostagemId()"
+                            class="btn btn-light bg-azul btn-style text-white" data-bs-target="#modalDelete" data-bs-toggle="modal">
+                                Deletar</button>
+                        </div>
+
+                    </div>
+                </div>
+                <!--/Postagens Geral-->
+
+            </div>
+
+            <div class="col-md-3">
+                <!--
+               <div class="sticky-top">
+                    <div class="row" style="color:#ede7f8">.</div>
+                    <div class="border-roxoclaro card card-body bg-roxo6">
+                        <h5 class="t-c d-flex align-items-center mb-2"><i class="fas fa-info-circle me-1"></i>Ranking
+                        </h5>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="t-c-li mt-2"><a>Roberto Chagas</a></li>
+                            <li class="t-c-li emp-li"><a>Empresa: Itau</a></li>
+                            <li class="t-c-li mt-2"><a>Roberto Chagas</a></li>
+                            <li class="t-c-li emp-li"><a>Empresa: Itau</a></li>
+
+                        </ul>
+                    </div>
+
+
+
+                    <div class="border-roxoclaro card card-body my-2 bg-roxo6">
+                        <h5 class="t-c d-flex align-items-center mb-2"><i class="fas fa-info-circle me-1"></i>Postagens
+                            em Alta</h5>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="t-c-li mt-2" *ngFor='let item of postagensEmAlta | slice:0:3'>
+                                <a>{{item.titulo}}</a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+            -->
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-roxo text-center">
+                <h5 class="modal-title text-white" id="publicacaoModalLabel">Atualizar Postagem</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-roxo3">
+
+                <!--  <h5>Titulo</h5>-->
+
+                <div class="form-group text-center texto mb-2">
+
+                    <input [(ngModel)]="postagemUsuario.titulo" class="form-control w-100 bg-in" type="text"
+                        placeholder="Titulo (mínimo de 4 caracteres)">
+
+                </div>
+
+                <!--  <h5>Texto</h5>-->
+
+                <div class="form-group text-center texto mb-2">
+
+                    <textarea [(ngModel)]="postagemUsuario.texto" class="form-control bg-in"
+                        placeholder="Escreva sua publicação (mínimo de 10 caracteres)" name="textoPublicacao" id=""
+                        cols="30" rows="8"></textarea>
+
+                </div>
+
+                <!--  <h5>Link de video ou Foto</h5>-->
+
+                <div class="form-group text-center texto mb-2">
+
+                    <input [(ngModel)]="postagemUsuario.midia" class="form-control w-100 bg-in" type="text"
+                        placeholder="Link de video ou Foto">
+
+                </div>
+
+                <div class="form-group text-center texto">
+                    <div class="form-group my-3 mx-3">
+                        <select [(ngModel)]="idTema" class="form-select bg-in" name="tema" id="tema"
+                            (change)="findByIdTema()">
+                            <option value="-1">{{postagemUsuario?.tema?.area}}</option>
+                            <option *ngFor='let item of listaTemas' class="fw-bolder" value="{{item.id}}">{{item.area}}
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer bg-roxo3">
+
+                <div class="col-md-12 d-flex justify-content-center">
+                    <button data-bs-dismiss="modal" (click)="atualizar()" type="button"
+                        class="btn btn-secondary bg-roxo">Atualizar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header  bg-roxo text-center">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Deletar Postagem</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body bg-roxo3">
+                <div class="container-fluid d-flex flex-column align-items-center text-center">
+                    <h6>Tem certeza que deseja deletar a postagem: {{postagemUsuario?.titulo}} ?</h6>
+                </div>
+            </div>
+
+            <div class="modal-footer bg-roxo3">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary bg-roxo" data-bs-dismiss="modal"
+                        (click)="apagar(postagemUsuario.id)">Deletar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

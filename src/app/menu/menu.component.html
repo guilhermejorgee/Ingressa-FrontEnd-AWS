@@ -1,0 +1,33 @@
+    <nav class="navbar navbar-expand-lg navbar-dark bg-roxo sticky-top">
+        <div class="container-fluid">
+            <a routerLink='/inicio'><img class="mx-2" src="https://i.imgur.com/oLOYeWm.png" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--<form class="d-flex w-50 br-forms">
+                <input class="form-control bg-lilas" type="search" placeholder="Search" aria-label="Search">
+            </form>-->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/vagas', 0]"><i class="fas fa-briefcase d-flex justify-content-center" ></i> Vagas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink='/sobrenos'><i class="fas fa-info-circle d-flex justify-content-center"></i> Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-5" routerLink='/contato'><i class="fas fa-at d-flex justify-content-center"></i> Contato</a>
+                    </li>
+                   <div *ngIf="authService.admin()"> <li class="nav-item">
+                        <a  class="nav-link me-5" routerLink='/tema'><i class="fas fa-image d-flex justify-content-center"></i> Temas</a> 
+                    </li>
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="deslogar()" href="#">Sair <i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>

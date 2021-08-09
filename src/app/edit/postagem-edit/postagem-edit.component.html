@@ -1,0 +1,26 @@
+<div class="container">
+
+    
+    <div class="container-fluid d-flex flex-column align-items-center">
+
+        <h5>Titulo</h5>
+
+        <input [(ngModel)]="postagem.titulo" class="form-control w-100" type="text">
+
+        <h5>Texto</h5>
+
+      <!--  <textarea [(ngModel)]="postagem.texto" class="form-control"
+            placeholder="Escreva sua publicação" name="textoPublicacao" id="" cols="30"
+            rows="8"></textarea>-->
+
+
+        <div class="form-group my-3 mx-3">
+            <select [(ngModel)]="idTema" class="form-control" name="tema" id="tema"
+                >
+                <option *ngFor='let item of listaTemas' value="{{item.id}}">{{item.area}}</option>
+            </select>
+                <button (click)="atualizar()">atualizar</button>
+        </div>
+
+    </div>
+</div>

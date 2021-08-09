@@ -1,0 +1,101 @@
+
+.bgroxo{
+    background-color:#9794f2 ;
+}
+
+.fa{
+    font-size: 35pt;
+    padding: 10px;
+
+}
+.iconLinkedin{
+    color:#0e76a8;
+}
+.iconGithub{
+    color:  #211F1F;
+}
+
+.iconLinkedin:hover{
+    color:#0e2aa8;
+
+}
+
+.iconGithub:hover{
+    color:  #474141;
+}
+
+bgroxo{
+    background-color:#9794f2 ;
+}
+
+.fa{
+    font-size: 35pt;
+    padding: 10px;
+
+}
+.iconLinkedin{
+    color:#0e76a8;
+}
+.iconGithub{
+    color:  #211F1F;
+}
+
+.iconLinkedin:hover{
+    color:#0e2aa8;
+
+}
+
+.iconGithub:hover{
+    color:  #474141;
+}
+
+.bg-fundo{
+    background-color: #E3DCF2;
+}
+
+.bg-roxo8{
+    background-color: #845ABF;
+}
+
+.bg-roxo2{
+    background-color: #CCC2F2;
+}
+
+.bg-roxo3{
+    background-color: #E3DCF2;
+}
+
+.bg-roxo4{
+    background-color: #ede7f8;
+}
+
+.bg-roxo5{
+    background-color: #AAA7F2;
+}
+
+.bg-roxo6{
+    background-color: #e5dff0;
+}
+.bg-roxo7{
+    background-color: #dfd9eb;
+}
+.bg-in {
+    background-color: #E3DCF2;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 50%);
+    outline:0;
+    /*border: 1px solid #9794F2;*/
+}
+@media (min-width: 770px) {
+    .resp{
+        flex-wrap: nowrap;
+    }
+}
+
+.bg-fundo{
+    background-color: #E3DCF2;
+}
+
+.ft-title1{
+    font-family: "Argentum";
+    font-weight: bolder
+}

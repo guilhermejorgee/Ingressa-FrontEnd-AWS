@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Eczar&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap');
+
+.bg-roxo{
+    background-color: #845ABF;
+}
+
+.bg-fundo{
+    background-color: #E3DCF2;
+}
+
+.bg-azul{
+    background-color: #9794F2;
+}
+
+.tm-card{
+    height: 300px;
+    width: 375px;
+}
+.box {
+    position:relative;
+}
+.bet_time {
+    position:absolute;
+    bottom:0;
+    right:0;
+    width: 100%;
+    text-align: right;
+    background-color: rgba(227, 220, 242, 0.8);
+    text-decoration: none;
+    padding: 1px 3px 1px 1px;
+}
+a.bet_time{
+    color: #fff;
+    font-size: 9pt;
+    font-weight: bold;
+    font-family: 'Roboto Slab';
+    text-transform: uppercase;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: -2px;
+
+}
+a.bet_time:hover{
+    cursor: pointer;
+}
+
+a.bet_time > span{
+background-color: #845ABF;
+padding: 3px;
+margin-right: -3px;
+border-top-left-radius: 3px;
+
+}
+
+.bg-roxo3{
+    background-color: #E3DCF2;
+}
+.bg-roxo{
+    background-color: #845ABF;
+}
+.bg-roxo4{
+    background-color: #ede7f8;
+}
+.bg-roxo6{
+    background-color: #e5dff0;
+}
+
+.texto {
+
+    font-family: 'Eczar', serif;
+    font-style: normal;
+    font-size: 26px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #845ABF;
+    /*text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+}
+
+
+.bg-in {
+    /* background-color: rgba(170, 167, 242, 0.8);*/
+    background-color: #e3dcf2;
+    border: 1px solid #9794F2;
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.bg-in > input{
+    height: 46px;
+}
+
+.bg-in::placeholder {
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+    font-weight:bolder;
+    font-size: 10pt;
+
+}
+
+.bg-in:focus {
+    background-color: #e3dcf2;
+    box-shadow: 0px 0px 3px #9794F2;
+    outline: 0;
+    border: 1px solid #9794F2;
+}
+
+.animacaoRolagem{
+    position: relative;
+    animation: mymove 1s;
+    animation-timing-function: linear;
+}
+
+.btn-vaga:hover{
+    background-color: #845ABF;
+    color: #fff;
+}
+
+.ft-title1{
+    font-family: "Argentum";
+    font-weight: bolder
+}
