@@ -25,19 +25,19 @@ export class AuthService {
 
   entrar(userLogin: UserLogin): Observable<UserLogin> {
 
-    return this.http.post<UserLogin>('https://redeingressa.herokuapp.com/usuarios/logar', userLogin);
+    return this.http.post<UserLogin>('http://db1-ingressa.sa-east-1.elasticbeanstalk.com/usuarios/logar', userLogin);
 
   }
 
   cadastrar(usuario: Usuario): Observable<Usuario> {
 
-    return this.http.post<Usuario>('https://redeingressa.herokuapp.com/usuarios/cadastrar', usuario);
+    return this.http.post<Usuario>('http://db1-ingressa.sa-east-1.elasticbeanstalk.com/usuarios/cadastrar', usuario);
 
   }
 
   atualizar(usuario: Usuario): Observable<Usuario> {
 
-    return this.http.put<Usuario>('https://redeingressa.herokuapp.com/usuarios', usuario, { headers: new HttpHeaders().set('Authorization', environment.token) });
+    return this.http.put<Usuario>('http://db1-ingressa.sa-east-1.elasticbeanstalk.com/usuarios', usuario, { headers: new HttpHeaders().set('Authorization', environment.token) });
 
   }
 
@@ -79,21 +79,21 @@ export class AuthService {
 
   getByIdUsuario(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(
-      `https://redeingressa.herokuapp.com/usuarios/${id}`,
+      `http://db1-ingressa.sa-east-1.elasticbeanstalk.com/usuarios/${id}`,
       { headers: new HttpHeaders().set('Authorization', environment.token) }
     )
   }
 
   curtirPostagem(idUsuario: number, idPostagem: number): Observable<Usuario> {
-    return this.http.put<Usuario>(`https://redeingressa.herokuapp.com/usuarios/adicionarcurtida/${idUsuario}/${idPostagem}`, null, { headers: new HttpHeaders().set('Authorization', environment.token) })
+    return this.http.put<Usuario>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/usuarios/adicionarcurtida/${idUsuario}/${idPostagem}`, null, { headers: new HttpHeaders().set('Authorization', environment.token) })
   }
 
   descurtirPostagem(idUsuario: number, idPostagem: number): Observable<Usuario> {
-    return this.http.put<Usuario>(`https://redeingressa.herokuapp.com/usuarios/removercurtida/${idUsuario}/${idPostagem}`, null, { headers: new HttpHeaders().set('Authorization', environment.token) })
+    return this.http.put<Usuario>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/usuarios/removercurtida/${idUsuario}/${idPostagem}`, null, { headers: new HttpHeaders().set('Authorization', environment.token) })
   }
 
   getTopUsuariosEmpregadores(): Observable<Usuario[]>{
-    return this.http.get<Usuario[]>('https://redeingressa.herokuapp.com/usuarios/tops', { headers: new HttpHeaders().set('Authorization', environment.token) } )
+    return this.http.get<Usuario[]>('http://db1-ingressa.sa-east-1.elasticbeanstalk.com/usuarios/tops', { headers: new HttpHeaders().set('Authorization', environment.token) } )
   }
 
 

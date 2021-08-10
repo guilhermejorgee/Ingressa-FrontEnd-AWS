@@ -21,69 +21,69 @@ export class PostagemService {
 
 
   getAllPostagensComuns(): Observable<Postagem[]>{
-    return this.http.get<Postagem[]>('https://redeingressa.herokuapp.com/postagens/comuns', {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>('http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/comuns', {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   getAllPostagensVagas(): Observable<Postagem[]>{
-    return this.http.get<Postagem[]>('https://redeingressa.herokuapp.com/postagens/vagas', {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>('http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/vagas', {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   getByIdUserByIdTema(idUsuario: number, idTema: number): Observable<Postagem[]>{
-    return this.http.get<Postagem[]>(`https://redeingressa.herokuapp.com/postagens/usuario/${idUsuario}/tema/${idTema}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/usuario/${idUsuario}/tema/${idTema}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
 
   postPostagem(postagem: Postagem): Observable<Postagem>{
-    return this.http.post<Postagem>('https://redeingressa.herokuapp.com/postagens', postagem, {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.post<Postagem>('http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens', postagem, {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   getPostagensEmAlta(): Observable<Postagem[]>{
-    return this.http.get<Postagem[]>('https://redeingressa.herokuapp.com/postagens/emaltasemana', {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>('http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/emaltasemana', {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   getPostagemComumDeUsuario(id:number): Observable<Postagem[]>{
-    return this.http.get<Postagem[]>(`https://redeingressa.herokuapp.com/postagens/comum/usuario/${id}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/comum/usuario/${id}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   putPostagemDeUsuario(postagem: Postagem): Observable<Postagem>{
-    return this.http.put<Postagem>('https://redeingressa.herokuapp.com/postagens', postagem, {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.put<Postagem>('http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens', postagem, {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   getPostagemById(id:number):Observable<Postagem>{
-    return this.http.get<Postagem>(`https://redeingressa.herokuapp.com/postagens/${id}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/${id}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
   //pegar vaga publicada
   getVagasById(id:number):Observable<Postagem[]>{
-    return this.http.get<Postagem[]>(`https://redeingressa.herokuapp.com/postagens/vaga/usuario/${id}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/vaga/usuario/${id}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   getByIdVagaTema(idUsuario: number, idTema: number):Observable<Postagem[]>{
-    return this.http.get<Postagem[]>(`https://redeingressa.herokuapp.com/postagens/usuario/${idUsuario}/tema/${idTema}`,  {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/usuario/${idUsuario}/tema/${idTema}`,  {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
 
 
   deletePostagem(id: number){
-    return this.http.delete(`https://redeingressa.herokuapp.com/postagens/${id}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.delete(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/${id}`, {headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   contCurtidaPostagem(id: number): Observable<Postagem>{
-    return this.http.put<Postagem>(`https://redeingressa.herokuapp.com/postagens/curtir/${id}`, null, {    headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.put<Postagem>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/curtir/${id}`, null, {    headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   contRemoverCurtidaPostagem(id: number): Observable<Postagem>{
-    return this.http.put<Postagem>(`https://redeingressa.herokuapp.com/postagens/descurtir/${id}`, null, {    headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.put<Postagem>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/descurtir/${id}`, null, {    headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   getPostagemByRegiao(regiao: string): Observable<Postagem[]>{
-    return this.http.get<Postagem[]>(`https://redeingressa.herokuapp.com/postagens/regiao/${regiao}`, { headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/regiao/${regiao}`, { headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 
   getPostagemAreaCargo(pesquisa: string): Observable<Postagem[]>{
-    return this.http.get<Postagem[]>(`https://redeingressa.herokuapp.com/postagens/areacargo/${pesquisa}`, { headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/areacargo/${pesquisa}`, { headers: new HttpHeaders().set('Authorization', environment.token)})
   }
   
   getPostagemAreaCargoRegiao(pesquisa: string, regiao: string): Observable<Postagem[]>{
-    return this.http.get<Postagem[]>(`https://redeingressa.herokuapp.com/postagens/areacargo/${pesquisa}/regiao/${regiao}`, { headers: new HttpHeaders().set('Authorization', environment.token)})
+    return this.http.get<Postagem[]>(`http://db1-ingressa.sa-east-1.elasticbeanstalk.com/postagens/areacargo/${pesquisa}/regiao/${regiao}`, { headers: new HttpHeaders().set('Authorization', environment.token)})
   }
 }
